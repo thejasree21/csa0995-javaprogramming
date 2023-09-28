@@ -1,0 +1,53 @@
+import java.util.*;
+public class ArrayStatistics
+{
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the number of elements in the array: ");
+        int n = sc.nextInt();
+        double[] numbers = new double[n];
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < n; i++) 
+        {
+            numbers[i] = sc.nextDouble();
+        }
+        calculateAndPrintStatistics(numbers);
+        sc.close();
+    }
+    public static void calculateAndPrintStatistics(double[] numbers)
+    {
+        double sum = 0;
+        for (double num : numbers)
+        {
+            sum += num;
+        }
+        double mean = sum / numbers.length;
+        Arrays.sort(numbers);
+        double median;
+        if (numbers.length % 2 == 0) 
+        {
+            median = (numbers[numbers.length / 2 - 1] + numbers[numbers.length / 2]) / 2.0;
+        } 
+        else 
+        {
+            median = numbers[numbers.length / 2];
+        }
+        Map<Double, Integer> countMap = new HashMap<>();
+        int maxCount = 0;
+        double mode = 0;
+        for (double num : numbers) 
+        {
+            int count = countMap.getOrDefault(num, 0) + 1;
+            countMap.put(num, count);
+            if (count > maxCount) 
+            {
+                maxCount = count;
+                mode = num;
+            }
+        }
+        System.out.println("Mean = " + mean);
+        System.out.println("Median = " + median);
+        System.out.println("Mode = " + mode);
+    }
+}
